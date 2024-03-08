@@ -26,21 +26,27 @@ public class Point {
 
   // TODO: Create a stub for the constructor
 
+
+
+
   public Point(ZonedDateTime t,double longt, double latt, double elev){
-    this.longitude= longt;
+    this.longitude=longt;
     this.latitude =latt;
     this.elevation=elev;
     this.time=t;
-
-
-    if(longitude>MAX_LONGITUDE && longitude<MIN_LONGITUDE){
-      GPSException exception= new GPSException("invalid longitude");
-      return;
-    } else if (latitude>MAX_LATITUDE && latitude<MIN_LATITUDE){
-      GPSException exception= new GPSException("invalid lattitude");
-      return;
+    if(longitude>MAX_LONGITUDE){
+      throw new GPSException("invalid longitude");
+    }else if(longitude<MIN_LONGITUDE){
+      throw new GPSException("invalid longitude");
+    }
+    if(latitude<MIN_LATITUDE){
+      throw new GPSException("invalid latitude");
+    }else if(latitude>MAX_LATITUDE){
+      throw new GPSException("invalid latitude");
     }
   }
+
+ 
 
   // TODO: Create a stub for getTime()
   public ZonedDateTime getTime(){
@@ -63,7 +69,7 @@ public class Point {
 
   // TODO: Create a stub for toString()
   public String toString(){
-    return String.format("(%f, %f), %f m",longitude,latitude,elevation);
+    return String.format("(%.5f, %.5f), %.1f m",longitude,latitude,elevation);
   }
 
   // IMPORTANT: Do not alter anything beneath this comment!
